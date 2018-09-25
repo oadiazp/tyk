@@ -23,3 +23,8 @@ services:
     image: tykio/tyk-gateway
     links:
       - tyk_redis:redis
+  tyk_pump:
+    image: tykio/tyk-pump-docker-pub
+    links:
+      - tyk_redis:redis
+      - tyk_mongo:mongo
