@@ -1,0 +1,25 @@
+version: '3'
+
+services:
+  tyk_dashboard:
+    image: tykio/tyk-dashboard
+    links:
+      - tyk_redis:redis
+      - tyk_mongo:mongo
+      - tyk_gateway:tyk_gateway
+    ports:
+      - 3000:3000
+    volumes:
+      - ./bootstrap.sh:/bootstrap.sh
+  tyk_redis:
+    image: redis
+    volumes:
+      - ./redis-data:/data
+  tyk_mongo:
+     image: mongo
+     volumes:
+      - ./mongo-data:/data/db
+  tyk_gateway:
+    image: tykio/tyk-gateway
+    links:
+      - tyk_redis:redis
